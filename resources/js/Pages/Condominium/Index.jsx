@@ -1,9 +1,12 @@
 import DefaultWrapper from "@/Components/DefaultWrapper";
 import LinkButton from "@/Components/LinkButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, usePage } from "@inertiajs/react";
+import { useEffect } from "react";
 import DataTable from "react-data-table-component";
 import { BsGear } from "react-icons/bs";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const columns = [
     {
@@ -16,7 +19,7 @@ const columns = [
         right: true,
         selector: (row) => {
             return (
-                <LinkButton>
+                <LinkButton href={route("condominium.edit", row.id)}>
                     <BsGear />
                 </LinkButton>
             );
@@ -25,6 +28,12 @@ const columns = [
 ];
 
 export default function Index({ auth, condominia }) {
+    const { flash } = usePage().props;
+
+    useEffect(() => {
+        toast.success(flash.success);
+    }, []);
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -38,6 +47,7 @@ export default function Index({ auth, condominia }) {
             <DefaultWrapper>
                 <DataTable columns={columns} data={condominia} />
             </DefaultWrapper>
+            <ToastContainer />
         </AuthenticatedLayout>
     );
 }

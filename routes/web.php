@@ -39,6 +39,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/create', [CondominiumController::class, 'create'])->name('condominium.create');
         Route::post('/store', [CondominiumController::class, 'store'])->name('condominium.store');
         Route::get('/', [CondominiumController::class, 'index'])->name('condominium.index');
+        Route::get('/{id}', [CondominiumController::class, 'edit'])->name('condominium.edit');
+        Route::put('/{id}', [CondominiumController::class, 'update'])->name('condominium.update');
     });
 });
 

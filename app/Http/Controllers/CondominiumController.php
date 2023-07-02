@@ -32,4 +32,19 @@ class CondominiumController extends Controller
             )
         );
     }
+
+    public function edit(Request $request, int $id)
+    {
+        $condominium = Condominium::find($id);
+        return Inertia::render('Condominium/Update', compact('condominium', 'id'));
+    }
+
+    public function update(Request $request, int $id)
+    {
+        $request->validate(['name' => 'required|string|min:3']);
+        $condominium = Condominium::find($id);
+        $condominium->name = $request->get('name');
+        $condominium->save();
+        return redirect('condominium')->with('success', 'Condomínio atualizado com sucesso');
+    }
 }
