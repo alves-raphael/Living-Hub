@@ -19,6 +19,17 @@ class CondominiumController extends Controller
         $request->validate(['name' => 'required|string|min:3']);
 
         Condominium::create($request->all());
-        return redirect(RouteServiceProvider::HOME)->with('success', 'Condomínio cadastrado com sucesso');
+        return redirect('condominium')->with('success', 'Condomínio cadastrado com sucesso');
+    }
+
+    public function index()
+    {
+        $condominia = Condominium::all();
+        return Inertia::render(
+            'Condominium/Index',
+            compact(
+                'condominia'
+            )
+        );
     }
 }

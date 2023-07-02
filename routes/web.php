@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('condominium')->group(function () {
         Route::get('/create', [CondominiumController::class, 'create'])->name('condominium.create');
         Route::post('/store', [CondominiumController::class, 'store'])->name('condominium.store');
-        Route::post('/', [CondominiumController::class, 'index'])->name('condominium.index');
+        Route::get('/', [CondominiumController::class, 'index'])->name('condominium.index');
     });
 });
 
