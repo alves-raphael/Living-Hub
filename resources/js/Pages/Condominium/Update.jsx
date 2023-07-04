@@ -8,11 +8,22 @@ import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
 import DataTable from "react-data-table-component";
+import { BsGear } from "react-icons/bs";
 
 const columns = [
     {
         name: "Nome",
         selector: (row) => row.name,
+        sortable: true,
+    },
+    {
+        name: "Editar",
+        selector: (row) => (
+            <LinkButton href={route("common-area.edit", row.id)}>
+                <BsGear />
+            </LinkButton>
+        ),
+        right: true,
     },
 ];
 

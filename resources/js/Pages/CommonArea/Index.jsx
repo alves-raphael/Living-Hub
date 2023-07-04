@@ -45,7 +45,7 @@ export default function Index({ auth, commonAreas }) {
             <Head title="Condomínios" />
             <DefaultWrapper>
                 <LinkButton href={route("common-area.create")}>
-                    Novo área comum
+                    Nova área comum
                 </LinkButton>
                 <DataTable columns={columns} data={commonAreas} />
             </DefaultWrapper>
