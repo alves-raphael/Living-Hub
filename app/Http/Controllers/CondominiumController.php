@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CommonArea;
 use App\Models\Condominium;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
@@ -36,6 +37,7 @@ class CondominiumController extends Controller
     public function edit(Request $request, int $id)
     {
         $condominium = Condominium::find($id);
+        $condominium->load('commonAreas');
         return Inertia::render('Condominium/Update', compact('condominium', 'id'));
     }
 

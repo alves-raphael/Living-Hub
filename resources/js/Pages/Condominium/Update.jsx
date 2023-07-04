@@ -1,4 +1,5 @@
 import DefaultWrapper from "@/Components/DefaultWrapper";
+import { H2, H3 } from "@/Components/Headings";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import LinkButton from "@/Components/LinkButton";
@@ -6,6 +7,15 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
+import { useEffect } from "react";
+import DataTable from "react-data-table-component";
+
+const columns = [
+    {
+        name: "Nome",
+        selector: (row) => row.name,
+    },
+];
 
 export default function Update({ auth, condominium, id }) {
     const title = "Atualizar Condomínio";
@@ -22,14 +32,7 @@ export default function Update({ auth, condominium, id }) {
     };
 
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    {title}
-                </h2>
-            }
-        >
+        <AuthenticatedLayout user={auth.user} header={<H2>{title}</H2>}>
             <Head title={title} />
             <DefaultWrapper>
                 <form onSubmit={submit}>
@@ -59,6 +62,8 @@ export default function Update({ auth, condominium, id }) {
                         </LinkButton>
                     </div>
                 </form>
+                <H3 className="my-5">Áreas Comum</H3>
+                <DataTable columns={columns} data={condominium.common_areas} />
             </DefaultWrapper>
         </AuthenticatedLayout>
     );
