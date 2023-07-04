@@ -64,6 +64,7 @@ export default function Create({ auth, condominia }) {
                                         <Select
                                             id="condominiun_id"
                                             name="condominium_id"
+                                            placeholder="Selecione"
                                             options={condominia}
                                             className="w-64"
                                             onChange={(e) =>
