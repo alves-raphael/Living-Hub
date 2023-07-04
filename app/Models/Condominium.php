@@ -15,4 +15,9 @@ class Condominium extends Model
     {
         return $this->hasMany(Users::class);
     }
+
+    public function commonAreas(): HasMany
+    {
+        return $this->hasMany(CommonArea::class);
+    }
 }
