@@ -45,6 +45,9 @@ export default function Index({ auth, condominia }) {
         >
             <Head title="Condomínios" />
             <DefaultWrapper>
+                <LinkButton href={route("condominium.create")}>
+                    Novo Condomínio
+                </LinkButton>
                 <DataTable columns={columns} data={condominia} />
             </DefaultWrapper>
             <ToastContainer />

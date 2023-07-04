@@ -1,6 +1,7 @@
 import DefaultWrapper from "@/Components/DefaultWrapper";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
+import LinkButton from "@/Components/LinkButton";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
@@ -47,9 +48,15 @@ export default function Update({ auth, condominium, id }) {
                         <InputError message={errors.name} className="mt-2" />
                     </div>
                     <div>
-                        <PrimaryButton className="mt-2" disabled={processing}>
+                        <PrimaryButton
+                            className="mt-2 mr-2"
+                            disabled={processing}
+                        >
                             Atualizar
                         </PrimaryButton>
+                        <LinkButton href={route("condominium.index")}>
+                            Voltar
+                        </LinkButton>
                     </div>
                 </form>
             </DefaultWrapper>

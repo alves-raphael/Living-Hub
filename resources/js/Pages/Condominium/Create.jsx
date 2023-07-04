@@ -1,5 +1,6 @@
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
+import LinkButton from "@/Components/LinkButton";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
@@ -52,11 +53,16 @@ export default function Create({ auth }) {
                                 </div>
                                 <div>
                                     <PrimaryButton
-                                        className="mt-2"
+                                        className="mt-2 mr-2"
                                         disabled={processing}
                                     >
                                         Cadastrar
                                     </PrimaryButton>
+                                    <LinkButton
+                                        href={route("condominium.index")}
+                                    >
+                                        Voltar
+                                    </LinkButton>
                                 </div>
                             </form>
                         </div>
