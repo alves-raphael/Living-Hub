@@ -36,6 +36,14 @@ export default function Authenticated({ user, header, children }) {
                                 >
                                     Condomínios
                                 </NavLink>
+                                <NavLink
+                                    href={route("common-area.index")}
+                                    active={route().current(
+                                        "common-area.index"
+                                    )}
+                                >
+                                    Áreas comum
+                                </NavLink>
                             </div>
                         </div>
 

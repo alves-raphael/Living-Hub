@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\CommonAreaController;
 use App\Http\Controllers\CondominiumController;
 use App\Http\Controllers\ProfileController;
+use App\Models\CommonArea;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -41,6 +43,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [CondominiumController::class, 'index'])->name('condominium.index');
         Route::get('/{id}', [CondominiumController::class, 'edit'])->name('condominium.edit');
         Route::put('/{id}', [CondominiumController::class, 'update'])->name('condominium.update');
+    });
+
+    Route::prefix('common-area')->group(function () {
+        Route::get('/create', [CommonAreaController::class, 'create'])->name('common-area.create');
+        Route::post('/store', [CommonAreaController::class, 'store'])->name('common-area.store');
+        Route::get('/', [CommonAreaController::class, 'index'])->name('common-area.index');
+        Route::get('/{id}', [CommonAreaController::class, 'edit'])->name('common-area.edit');
+        Route::put('/{id}', [CommonAreaController::class, 'update'])->name('common-area.update');
     });
 });
 

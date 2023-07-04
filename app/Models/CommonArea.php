@@ -10,7 +10,7 @@ class CommonArea extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'condominium_id'];
 
     public function condominium(): BelongsTo
     {

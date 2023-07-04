@@ -15,11 +15,16 @@ const columns = [
         sortable: true,
     },
     {
+        name: "Condomínio",
+        selector: (row) => row.condominium.name,
+        sortable: true,
+    },
+    {
         name: "Editar",
         right: true,
         selector: (row) => {
             return (
-                <LinkButton href={route("condominium.edit", row.id)}>
+                <LinkButton href={route("common-area.edit", row.id)}>
                     <BsGear />
                 </LinkButton>
             );
@@ -27,7 +32,7 @@ const columns = [
     },
 ];
 
-export default function Index({ auth, condominia }) {
+export default function Index({ auth, commonAreas }) {
     const { flash } = usePage().props;
 
     useEffect(() => {
@@ -39,13 +44,16 @@ export default function Index({ auth, condominia }) {
             user={auth.user}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    Condomínios
+                    Áreas comum
                 </h2>
             }
         >
             <Head title="Condomínios" />
             <DefaultWrapper>
-                <DataTable columns={columns} data={condominia} />
+                <LinkButton href={route("common-area.create")}>
+                    Novo área comum
+                </LinkButton>
+                <DataTable columns={columns} data={commonAreas} />
             </DefaultWrapper>
             <ToastContainer />
         </AuthenticatedLayout>
