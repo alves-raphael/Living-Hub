@@ -1,3 +1,4 @@
+import { H2 } from "@/Components/Headings";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import LinkButton from "@/Components/LinkButton";
@@ -7,6 +8,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
 
 export default function Create({ auth }) {
+    const title = "Novo Condomínio";
     const { data, setData, post, errors, processing } = useForm({
         name: "",
     });
@@ -15,15 +17,8 @@ export default function Create({ auth }) {
         post(route("condominium.store"));
     };
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    Novo condomínio
-                </h2>
-            }
-        >
-            <Head title="Novo Condomínio" />
+        <AuthenticatedLayout user={auth.user} header={<H2>{title}</H2>}>
+            <Head title={title} />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">

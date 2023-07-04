@@ -1,3 +1,4 @@
+import { H2 } from "@/Components/Headings";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import LinkButton from "@/Components/LinkButton";
@@ -24,14 +25,7 @@ export default function Create({ auth, condominia }) {
         post(route("common-area.store"));
     };
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    {title}
-                </h2>
-            }
-        >
+        <AuthenticatedLayout user={auth.user} header={<H2>{title}</H2>}>
             <Head title={title} />
 
             <div className="py-12">

@@ -7,7 +7,6 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
-import { useEffect } from "react";
 import DataTable from "react-data-table-component";
 
 const columns = [

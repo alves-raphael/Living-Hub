@@ -1,4 +1,5 @@
 import DefaultWrapper from "@/Components/DefaultWrapper";
+import { H2 } from "@/Components/Headings";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import LinkButton from "@/Components/LinkButton";
@@ -6,7 +7,6 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
-import { useEffect } from "react";
 import Select from "react-select";
 
 export default function Update({ auth, condominia, commonArea, id }) {
@@ -23,14 +23,7 @@ export default function Update({ auth, condominia, commonArea, id }) {
     };
 
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    {title}
-                </h2>
-            }
-        >
+        <AuthenticatedLayout user={auth.user} header={<H2>{title}</H2>}>
             <Head title={title} />
             <DefaultWrapper>
                 <form onSubmit={submit}>

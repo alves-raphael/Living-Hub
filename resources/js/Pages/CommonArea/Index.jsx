@@ -1,4 +1,5 @@
 import DefaultWrapper from "@/Components/DefaultWrapper";
+import { H2 } from "@/Components/Headings";
 import LinkButton from "@/Components/LinkButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, usePage } from "@inertiajs/react";
@@ -40,14 +41,7 @@ export default function Index({ auth, commonAreas }) {
     }, []);
 
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    Áreas comum
-                </h2>
-            }
-        >
+        <AuthenticatedLayout user={auth.user} header={<H2>Áreas comum</H2>}>
             <Head title="Condomínios" />
             <DefaultWrapper>
                 <LinkButton href={route("common-area.create")}>
