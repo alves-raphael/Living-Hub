@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Reservation extends Model
 {
@@ -18,5 +19,10 @@ class Reservation extends Model
     public function condominium(): BelongsTo
     {
         return $this->belongsTo(Condominium::class);
+    }
+
+    public function statuses(): BelongsToMany
+    {
+        return $this->belongsToMany(Status::class);
     }
 }
