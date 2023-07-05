@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommonAreaController;
 use App\Http\Controllers\CondominiumController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReservationController;
 use App\Models\CommonArea;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [CommonAreaController::class, 'index'])->name('common-area.index');
         Route::get('/{id}', [CommonAreaController::class, 'edit'])->name('common-area.edit');
         Route::put('/{id}', [CommonAreaController::class, 'update'])->name('common-area.update');
+    });
+
+    Route::prefix('reservations')->group(function () {
+        Route::get('/mine', [ReservationController::class, 'mine'])->name('reservations.mine');
     });
 });
 

@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->foreign('reservation_id')->references('id')->on('reservations');
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('statuses');
+            $table->string('comment')->nullable();
             $table->timestamps();
 
             $table->primary(['reservation_id', 'status_id']);
@@ -26,6 +27,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('statuses');
+        Schema::dropIfExists('reservation_status');
     }
 };

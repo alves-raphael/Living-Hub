@@ -33,7 +33,9 @@ const columns = [
     },
 ];
 
-export default function Index({ auth, commonAreas }) {
+const title = "Minhas reservas";
+
+export default function Index({ auth, reservations }) {
     const { flash } = usePage().props;
 
     useEffect(() => {
@@ -41,13 +43,17 @@ export default function Index({ auth, commonAreas }) {
     }, []);
 
     return (
-        <AuthenticatedLayout user={auth.user} header={<H2>Áreas comum</H2>}>
-            <Head title="Área comum" />
+        <AuthenticatedLayout user={auth.user} header={<H2>{title}</H2>}>
+            <Head title={title} />
             <DefaultWrapper>
-                <LinkButton href={route("common-area.create")}>
-                    Nova área comum
-                </LinkButton>
-                <DataTable columns={columns} data={commonAreas} />
+                <LinkButton href={"/"}>Nova reserva</LinkButton>
+                {reservations.length > 0 ? (
+                    <DataTable columns={columns} data={reservations} />
+                ) : (
+                    <div className="m-5 text-center text-lg">
+                        Você não possui nenhuma reserva
+                    </div>
+                )}
             </DefaultWrapper>
             <ToastContainer />
         </AuthenticatedLayout>
