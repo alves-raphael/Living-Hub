@@ -44,6 +44,14 @@ export default function Authenticated({ user, header, children }) {
                                 >
                                     Áreas comum
                                 </NavLink>
+                                <NavLink
+                                    href={route("reservations.mine")}
+                                    active={route().current(
+                                        "reservations.mine"
+                                    )}
+                                >
+                                    Minhas reservas
+                                </NavLink>
                             </div>
                         </div>
 

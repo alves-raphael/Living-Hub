@@ -46,7 +46,9 @@ export default function Index({ auth, reservations }) {
         <AuthenticatedLayout user={auth.user} header={<H2>{title}</H2>}>
             <Head title={title} />
             <DefaultWrapper>
-                <LinkButton href={"/"}>Nova reserva</LinkButton>
+                <LinkButton href={route("reservations.create")}>
+                    Nova reserva
+                </LinkButton>
                 {reservations.length > 0 ? (
                     <DataTable columns={columns} data={reservations} />
                 ) : (

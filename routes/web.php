@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('reservations')->group(function () {
         Route::get('/mine', [ReservationController::class, 'mine'])->name('reservations.mine');
+        Route::get('/create', [ReservationController::class, 'create'])->name('reservations.create');
     });
 });
 

@@ -3,16 +3,18 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import LinkButton from "@/Components/LinkButton";
 import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
-import Select from "react-select";
+import { useState } from "react";
+import "rsuite/dist/rsuite.min.css";
+import { DatePicker, SelectPicker } from "rsuite";
+import ptBR from "rsuite/locales/pt_BR";
 
-export default function Create({ auth, condominia }) {
-    const title = "Nova área comum";
+export default function Create({ auth, areas }) {
+    const title = "Nova reserva";
+    const [startDate, setStartDate] = useState(new Date());
     const { data, setData, post, errors, processing } = useForm({
-        name: "",
-        condominium_id: null,
+        common_area_id: "",
     });
     const submit = (e) => {
         e.preventDefault();
@@ -30,20 +32,14 @@ export default function Create({ auth, condominia }) {
                                 <div className="flex gap-1 flex-wrap">
                                     <div>
                                         <InputLabel
-                                            htmlFor="name"
-                                            value="Nome"
+                                            htmlFor="common_area_id"
+                                            value="Área Comum"
                                         />
-                                        <TextInput
-                                            id="name"
-                                            name="name"
-                                            value={data.name}
-                                            className="mt-1"
-                                            autoComplete="name"
-                                            isFocused={true}
-                                            onChange={(e) =>
-                                                setData("name", e.target.value)
-                                            }
-                                            required
+                                        <SelectPicker
+                                            placeholder="Selecione"
+                                            locale={ptBR}
+                                            data={areas}
+                                            style={{ width: 224 }}
                                         />
                                         <InputError
                                             message={errors.name}
@@ -52,25 +48,28 @@ export default function Create({ auth, condominia }) {
                                     </div>
                                     <div>
                                         <InputLabel
-                                            htmlFor="condominium_id"
-                                            value="Condomínio"
+                                            htmlFor="started_at"
+                                            value="Início"
                                         />
-                                        <Select
-                                            id="condominium_id"
-                                            name="condominium_id"
-                                            placeholder="Selecione"
-                                            options={condominia}
-                                            className="w-64"
-                                            onChange={(e) =>
-                                                setData(
-                                                    "condominium_id",
-                                                    e.value
-                                                )
-                                            }
+                                        <DatePicker
+                                            locale={ptBR}
+                                            format="dd/MM/yyyy HH:mm"
+                                            placeholder="dia/mês/ano hora:minuto"
+                                            name="started_at"
+                                            id="started_at"
                                         />
-                                        <InputError
-                                            message={errors.condominium_id}
-                                            className="mt-2"
+                                    </div>
+                                    <div>
+                                        <InputLabel
+                                            htmlFor="finished_at"
+                                            value="Fim"
+                                        />
+                                        <DatePicker
+                                            locale={ptBR}
+                                            format="dd/MM/yyyy HH:mm"
+                                            placeholder="dia/mês/ano hora:minuto"
+                                            name="finished_at"
+                                            id="finished_at"
                                         />
                                     </div>
                                 </div>

@@ -49,11 +49,11 @@ export default function Update({ auth, condominia, commonArea, id }) {
                         </div>
                         <div>
                             <InputLabel
-                                htmlFor="condominiun_id"
+                                htmlFor="condominium_id"
                                 value="Condomínio"
                             />
                             <Select
-                                id="condominiun_id"
+                                id="condominium_id"
                                 name="condominium_id"
                                 options={condominia}
                                 placeholder="Escolha o condomínio"
