@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('condominium')->group(function () {
         Route::get('/create', [CondominiumController::class, 'create'])->name('condominium.create');
-        Route::post('/store', [CondominiumController::class, 'store'])->name('condominium.store');
+        Route::post('/', [CondominiumController::class, 'store'])->name('condominium.store');
         Route::get('/', [CondominiumController::class, 'index'])->name('condominium.index');
         Route::get('/{id}', [CondominiumController::class, 'edit'])->name('condominium.edit');
         Route::put('/{id}', [CondominiumController::class, 'update'])->name('condominium.update');
@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('common-area')->group(function () {
         Route::get('/create', [CommonAreaController::class, 'create'])->name('common-area.create');
-        Route::post('/store', [CommonAreaController::class, 'store'])->name('common-area.store');
+        Route::post('/', [CommonAreaController::class, 'store'])->name('common-area.store');
         Route::get('/', [CommonAreaController::class, 'index'])->name('common-area.index');
         Route::get('/{id}', [CommonAreaController::class, 'edit'])->name('common-area.edit');
         Route::put('/{id}', [CommonAreaController::class, 'update'])->name('common-area.update');
@@ -57,6 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('reservations')->group(function () {
         Route::get('/mine', [ReservationController::class, 'mine'])->name('reservations.mine');
         Route::get('/create', [ReservationController::class, 'create'])->name('reservations.create');
+        Route::post('/', [ReservationController::class, 'store'])->name('reservations.store');
     });
 });
 

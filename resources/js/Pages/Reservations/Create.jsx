@@ -5,20 +5,20 @@ import LinkButton from "@/Components/LinkButton";
 import PrimaryButton from "@/Components/PrimaryButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
-import { useState } from "react";
 import "rsuite/dist/rsuite.min.css";
 import { DatePicker, SelectPicker } from "rsuite";
 import ptBR from "rsuite/locales/pt_BR";
 
 export default function Create({ auth, areas }) {
     const title = "Nova reserva";
-    const [startDate, setStartDate] = useState(new Date());
     const { data, setData, post, errors, processing } = useForm({
-        common_area_id: "",
+        common_area_id: null,
+        started_at: null,
+        finished_at: null,
     });
     const submit = (e) => {
         e.preventDefault();
-        post(route("common-area.store"));
+        post(route("reservations.store"));
     };
     return (
         <AuthenticatedLayout user={auth.user} header={<H2>{title}</H2>}>
@@ -39,10 +39,13 @@ export default function Create({ auth, areas }) {
                                             placeholder="Selecione"
                                             locale={ptBR}
                                             data={areas}
+                                            onChange={(value) =>
+                                                setData("common_area_id", value)
+                                            }
                                             style={{ width: 224 }}
                                         />
                                         <InputError
-                                            message={errors.name}
+                                            message={errors.common_area_id}
                                             className="mt-2"
                                         />
                                     </div>
@@ -53,10 +56,17 @@ export default function Create({ auth, areas }) {
                                         />
                                         <DatePicker
                                             locale={ptBR}
+                                            onChange={(value) =>
+                                                setData("started_at", value)
+                                            }
                                             format="dd/MM/yyyy HH:mm"
                                             placeholder="dia/mês/ano hora:minuto"
                                             name="started_at"
                                             id="started_at"
+                                        />
+                                        <InputError
+                                            message={errors.started_at}
+                                            className="mt-2"
                                         />
                                     </div>
                                     <div>
@@ -66,10 +76,18 @@ export default function Create({ auth, areas }) {
                                         />
                                         <DatePicker
                                             locale={ptBR}
+                                            onChange={(value) =>
+                                                setData("finished_at", value)
+                                            }
                                             format="dd/MM/yyyy HH:mm"
                                             placeholder="dia/mês/ano hora:minuto"
                                             name="finished_at"
                                             id="finished_at"
+                                            className="border-red-400 rounded-lg"
+                                        />
+                                        <InputError
+                                            message={errors.finished_at}
+                                            className="mt-2"
                                         />
                                     </div>
                                 </div>

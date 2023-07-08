@@ -11,14 +11,16 @@ class Reservation extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['common_area_id', 'started_at', 'finished_at'];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function condominium(): BelongsTo
+    public function commonArea(): BelongsTo
     {
-        return $this->belongsTo(Condominium::class);
+        return $this->belongsTo(CommonArea::class);
     }
 
     public function statuses(): BelongsToMany

@@ -3,22 +3,47 @@ import { H2 } from "@/Components/Headings";
 import LinkButton from "@/Components/LinkButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, usePage } from "@inertiajs/react";
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { useEffect } from "react";
 import DataTable from "react-data-table-component";
 import { BsGear } from "react-icons/bs";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Badge } from "rsuite";
+import "rsuite/dist/rsuite.min.css";
 
 const columns = [
     {
-        name: "Nome",
-        selector: (row) => row.name,
-        sortable: true,
+        name: "Área",
+        selector: (row) => row.common_area.name,
     },
     {
-        name: "Condomínio",
-        selector: (row) => row.condominium.name,
-        sortable: true,
+        name: "Início",
+        selector: (row) =>
+            format(new Date(row.started_at), "dd 'de' MMMM 'de' Y 'às' HH:mm", {
+                locale: ptBR,
+            }),
+    },
+    {
+        name: "Fim",
+        selector: (row) =>
+            format(
+                new Date(row.finished_at),
+                "dd 'de' MMMM 'de' Y 'às' HH:mm",
+                {
+                    locale: ptBR,
+                }
+            ),
+    },
+    {
+        name: "Status",
+        selector: (row) => (
+            <Badge
+                color="red"
+                content={<span className="text-sm font-bold">CANCELADA</span>}
+            />
+        ),
     },
     {
         name: "Editar",
@@ -39,6 +64,7 @@ export default function Index({ auth, reservations }) {
     const { flash } = usePage().props;
 
     useEffect(() => {
+        console.log(reservations);
         toast.success(flash.success);
     }, []);
 
