@@ -25,6 +25,11 @@ class Reservation extends Model
 
     public function statuses(): BelongsToMany
     {
-        return $this->belongsToMany(Status::class);
+        return $this->belongsToMany(Status::class)->withTimestamps();
+    }
+
+    public function fetchCurrentStatus(): Status
+    {
+        return $this->statuses()->orderBy('created_at', 'DESC')->first();
     }
 }

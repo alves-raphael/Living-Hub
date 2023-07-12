@@ -21,6 +21,7 @@ class CommonAreaController extends Controller
             return ['value' => $condo->id, 'label' => $condo->name];
         });
     }
+
     public function create()
     {
         $condominia = $this->getSelectableCondominia();

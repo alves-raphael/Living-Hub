@@ -99,7 +99,7 @@ export default function Create({ auth, areas }) {
                                         Cadastrar
                                     </PrimaryButton>
                                     <LinkButton
-                                        href={route("common-area.index")}
+                                        href={route("reservations.mine")}
                                     >
                                         Voltar
                                     </LinkButton>

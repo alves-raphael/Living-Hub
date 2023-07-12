@@ -12,7 +12,7 @@ class StatusSeeder extends Seeder
      */
     public function run(): void
     {
-        \DB::table('status')->insert([
+        \DB::table('statuses')->insert([
             [
                 'slug' => 'pending',
                 'description' => 'Pendente',
@@ -31,7 +31,7 @@ class StatusSeeder extends Seeder
             [
                 'slug' => 'cancelled',
                 'description' => 'Cancelada',
-                'color' => 'red'
+                'color' => 'violet'
             ],
         ]);
     }

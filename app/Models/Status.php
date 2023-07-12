@@ -10,8 +10,13 @@ class Status extends Model
 {
     use HasFactory;
 
+    const PENDING = 'pending';
+    const APPROVED = 'approved';
+    const DECLINED = 'declined';
+    const CANCELLED = 'cancelled';
+
     public function reservations(): BelongsToMany
     {
-        return $this->belongsToMany(Reservation::class);
+        return $this->belongsToMany(Reservation::class)->withTimestamps();
     }
 }

@@ -6,57 +6,13 @@ import { Head, usePage } from "@inertiajs/react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useEffect } from "react";
-import DataTable from "react-data-table-component";
 import { BsGear } from "react-icons/bs";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Badge } from "rsuite";
+import { Badge, Button, Table } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
 
-const columns = [
-    {
-        name: "Área",
-        selector: (row) => row.common_area.name,
-    },
-    {
-        name: "Início",
-        selector: (row) =>
-            format(new Date(row.started_at), "dd 'de' MMMM 'de' Y 'às' HH:mm", {
-                locale: ptBR,
-            }),
-    },
-    {
-        name: "Fim",
-        selector: (row) =>
-            format(
-                new Date(row.finished_at),
-                "dd 'de' MMMM 'de' Y 'às' HH:mm",
-                {
-                    locale: ptBR,
-                }
-            ),
-    },
-    {
-        name: "Status",
-        selector: (row) => (
-            <Badge
-                color="red"
-                content={<span className="text-sm font-bold">CANCELADA</span>}
-            />
-        ),
-    },
-    {
-        name: "Editar",
-        right: true,
-        selector: (row) => {
-            return (
-                <LinkButton href={route("common-area.edit", row.id)}>
-                    <BsGear />
-                </LinkButton>
-            );
-        },
-    },
-];
+const { Column, HeaderCell, Cell } = Table;
 
 const title = "Minhas reservas";
 
@@ -64,7 +20,7 @@ export default function Index({ auth, reservations }) {
     const { flash } = usePage().props;
 
     useEffect(() => {
-        console.log(reservations);
+        console.log("reservations", reservations);
         toast.success(flash.success);
     }, []);
 
@@ -76,7 +32,73 @@ export default function Index({ auth, reservations }) {
                     Nova reserva
                 </LinkButton>
                 {reservations.length > 0 ? (
-                    <DataTable columns={columns} data={reservations} />
+                    <Table data={reservations}>
+                        <Column flexGrow={1}>
+                            <HeaderCell>Área</HeaderCell>
+                            <Cell dataKey="common_area" />
+                        </Column>
+
+                        <Column flexGrow={1}>
+                            <HeaderCell>Início</HeaderCell>
+                            <Cell>
+                                {(row) =>
+                                    format(
+                                        new Date(row.started_at),
+                                        "dd 'de' MMMM 'de' Y 'às' HH:mm",
+                                        { locale: ptBR }
+                                    )
+                                }
+                            </Cell>
+                        </Column>
+
+                        <Column flexGrow={1}>
+                            <HeaderCell>Fim</HeaderCell>
+                            <Cell>
+                                {(row) =>
+                                    format(
+                                        new Date(row.finished_at),
+                                        "dd 'de' MMMM 'de' Y 'às' HH:mm",
+                                        { locale: ptBR }
+                                    )
+                                }
+                            </Cell>
+                        </Column>
+
+                        <Column flexGrow={1}>
+                            <HeaderCell>Status</HeaderCell>
+                            <Cell>
+                                {(row) => {
+                                    return (
+                                        <Badge
+                                            color={row.status_color}
+                                            content={
+                                                <span className="font-bold text-sm">
+                                                    {row.current_status}
+                                                </span>
+                                            }
+                                        />
+                                    );
+                                }}
+                            </Cell>
+                        </Column>
+
+                        <Column width={80} align="right">
+                            <HeaderCell>...</HeaderCell>
+
+                            <Cell style={{ padding: "6px" }}>
+                                {(rowData) => (
+                                    <Button
+                                        appearance="link"
+                                        onClick={() =>
+                                            alert(`id:${rowData.id}`)
+                                        }
+                                    >
+                                        Detalhes
+                                    </Button>
+                                )}
+                            </Cell>
+                        </Column>
+                    </Table>
                 ) : (
                     <div className="m-5 text-center text-lg">
                         Você não possui nenhuma reserva
