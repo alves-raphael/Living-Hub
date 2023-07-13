@@ -16,6 +16,7 @@ class ReservationController extends Controller
             'started_at',
             'finished_at',
             'name as common_area',
+            'r.id',
             DB::raw('(select description from statuses s
                 inner join reservation_status rs ON s.id = rs.status_id
                 where rs.reservation_id = r.id
@@ -63,4 +64,18 @@ class ReservationController extends Controller
         return redirect()->route('reservations.mine')->with('success', 'Reserva efetuada com sucesso!');
     }
 
+
+    public function details(Request $request, int $id)
+    {
+        $user = \Auth::user();
+        $reservation = $user->reservations()
+            ->where('id', $id)->with('commonArea', 'commonArea.condominium', 'statuses')->get();
+        if ($reservation->isEmpty()) {
+            return redirect()->back()->with('error', 'Não foi possível acessar a seção');
+        }
+        $reservation = $reservation->first();
+        $currentStatus = $reservation->fetchCurrentStatus();
+        $cancellable = $currentStatus->slug != Status::CANCELLED && $currentStatus->slug != Status::DECLINED;
+        return Inertia::render('Reservations/Details', compact('reservation', 'cancellable'));
+    }
 }

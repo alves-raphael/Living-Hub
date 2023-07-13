@@ -2,15 +2,13 @@ import DefaultWrapper from "@/Components/DefaultWrapper";
 import { H2 } from "@/Components/Headings";
 import LinkButton from "@/Components/LinkButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, usePage } from "@inertiajs/react";
-import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
+import { Head, Link, usePage } from "@inertiajs/react";
 import { useEffect } from "react";
-import { BsGear } from "react-icons/bs";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Badge, Button, Table } from "rsuite";
+import { Badge, Table } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
+import { formatDate } from "./utils/date";
 
 const { Column, HeaderCell, Cell } = Table;
 
@@ -20,8 +18,8 @@ export default function Index({ auth, reservations }) {
     const { flash } = usePage().props;
 
     useEffect(() => {
-        console.log("reservations", reservations);
         toast.success(flash.success);
+        toast.error(flash.error);
     }, []);
 
     return (
@@ -40,28 +38,12 @@ export default function Index({ auth, reservations }) {
 
                         <Column flexGrow={1}>
                             <HeaderCell>Início</HeaderCell>
-                            <Cell>
-                                {(row) =>
-                                    format(
-                                        new Date(row.started_at),
-                                        "dd 'de' MMMM 'de' Y 'às' HH:mm",
-                                        { locale: ptBR }
-                                    )
-                                }
-                            </Cell>
+                            <Cell>{(row) => formatDate(row.started_at)}</Cell>
                         </Column>
 
                         <Column flexGrow={1}>
                             <HeaderCell>Fim</HeaderCell>
-                            <Cell>
-                                {(row) =>
-                                    format(
-                                        new Date(row.finished_at),
-                                        "dd 'de' MMMM 'de' Y 'às' HH:mm",
-                                        { locale: ptBR }
-                                    )
-                                }
-                            </Cell>
+                            <Cell>{(row) => formatDate(row.finished_at)}</Cell>
                         </Column>
 
                         <Column flexGrow={1}>
@@ -87,14 +69,14 @@ export default function Index({ auth, reservations }) {
 
                             <Cell style={{ padding: "6px" }}>
                                 {(rowData) => (
-                                    <Button
-                                        appearance="link"
-                                        onClick={() =>
-                                            alert(`id:${rowData.id}`)
-                                        }
+                                    <Link
+                                        href={route(
+                                            "reservations.details",
+                                            rowData.id
+                                        )}
                                     >
                                         Detalhes
-                                    </Button>
+                                    </Link>
                                 )}
                             </Cell>
                         </Column>
