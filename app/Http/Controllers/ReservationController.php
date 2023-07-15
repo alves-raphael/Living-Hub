@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reservation;
 use App\Models\Status;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -54,10 +55,8 @@ class ReservationController extends Controller
             'finished_at' => 'required|date|after:started_at'
         ]);
 
-        $fields = $request->all();
-        $fields['started_at'] = (new \DateTime($fields['started_at']))->setTimeZone(new \DateTimeZone('America/Sao_Paulo'));
-        $fields['finished_at'] = (new \DateTime($fields['finished_at']))->setTimeZone(new \DateTimeZone('America/Sao_Paulo'));
-        $reservation = \Auth::user()->reservations()->create($fields);
+        $reservation = new Reservation($request->all());
+        $reservation = \Auth::user()->reservations()->save($reservation);
         $pendingStatus = Status::where('slug', Status::PENDING)->first();
         $reservation->statuses()->attach($pendingStatus->id);
 
@@ -67,15 +66,21 @@ class ReservationController extends Controller
 
     public function details(Request $request, int $id)
     {
-        $user = \Auth::user();
-        $reservation = $user->reservations()
-            ->where('id', $id)->with('commonArea', 'commonArea.condominium', 'statuses')->get();
-        if ($reservation->isEmpty()) {
+        $reservation = \Auth::user()->reservations()
+            ->where('id', $id)->with('commonArea', 'commonArea.condominium', 'statuses')->first();
+        if (!$reservation) {
             return redirect()->back()->with('error', 'Não foi possível acessar a seção');
         }
-        $reservation = $reservation->first();
-        $currentStatus = $reservation->fetchCurrentStatus();
-        $cancellable = $currentStatus->slug != Status::CANCELLED && $currentStatus->slug != Status::DECLINED;
+        $cancellable = $reservation->isCancellable();
         return Inertia::render('Reservations/Details', compact('reservation', 'cancellable'));
+    }
+
+    public function cancel(int $id)
+    {
+        $reservation = \Auth::user()->reservations()->where('id', $id)->first();
+        if (!$reservation || !$reservation->cancel()) {
+            return redirect()->back()->with('error', 'Não foi possível completar esta ação');
+        }
+        return redirect()->route('reservations.mine')->with('success', 'Reserva cancelada com sucesso');
     }
 }

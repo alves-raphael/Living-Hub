@@ -20,6 +20,7 @@ export default function Index({ auth, reservations }) {
     useEffect(() => {
         toast.success(flash.success);
         toast.error(flash.error);
+        reservations = [];
     }, []);
 
     return (
@@ -30,7 +31,7 @@ export default function Index({ auth, reservations }) {
                     Nova reserva
                 </LinkButton>
                 {reservations.length > 0 ? (
-                    <Table data={reservations}>
+                    <Table data={reservations} autoHeight={true}>
                         <Column flexGrow={1}>
                             <HeaderCell>Área</HeaderCell>
                             <Cell dataKey="common_area" />

@@ -58,6 +58,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/mine', [ReservationController::class, 'mine'])->name('reservations.mine');
         Route::get('/create', [ReservationController::class, 'create'])->name('reservations.create');
         Route::get('/details/{id}', [ReservationController::class, 'details'])->name('reservations.details');
+        Route::get('/cancel/{id}', [ReservationController::class, 'cancel'])->name('reservations.cancel');
         Route::post('/', [ReservationController::class, 'store'])->name('reservations.store');
     });
 });
