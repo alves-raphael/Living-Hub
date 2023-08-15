@@ -4,37 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Reservation;
 use App\Models\Status;
+use App\Repositories\ReservationRepository;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use DB;
 
 class ReservationController extends Controller
 {
+    public function __construct(private ReservationRepository $repository)
+    {
+    }
     public function mine()
     {
         $user = \Auth::user();
-        $reservations = DB::table('reservations AS r')->select(
-            'started_at',
-            'finished_at',
-            'name as common_area',
-            'r.id',
-            DB::raw('(select description from statuses s
-                inner join reservation_status rs ON s.id = rs.status_id
-                where rs.reservation_id = r.id
-                order by rs.created_at desc
-                limit 1) as current_status'
-            ),
-            DB::raw('(select color from statuses s
-                inner join reservation_status rs ON s.id = rs.status_id
-                where rs.reservation_id = r.id
-                order by rs.created_at desc
-                limit 1) as status_color'
-            ),
-        )
-            ->join('common_areas AS ca', 'ca.id', '=', 'r.common_area_id')
-            ->where('r.user_id', $user->id)
-            ->orderBy('r.created_at', 'desc')
-            ->get();
+        $reservations = $this->repository->fetchByUserWithStatus($user->id);
         return Inertia::render('Reservations/Mine', compact('reservations'));
     }
 
