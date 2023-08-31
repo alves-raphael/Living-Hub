@@ -73,7 +73,7 @@ export default function Welcome({ auth }) {
 
                                 <Link
                                     class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-red-600 transition hover:text-red-600/75 sm:block"
-                                    href="/"
+                                    href={route("register")}
                                 >
                                     Cadastre-se
                                 </Link>
