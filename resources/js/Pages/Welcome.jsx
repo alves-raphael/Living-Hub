@@ -108,7 +108,7 @@ export default function Welcome({ auth }) {
                             Simplificando a Vida em Condomínios:
                             <strong class="font-extrabold text-red-700 sm:block">
                                 Bem-vindo ao Living Hub! Versão com teste
-                                quebrando
+                                rodando
                             </strong>
                         </h1>
 
