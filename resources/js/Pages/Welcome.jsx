@@ -107,7 +107,8 @@ export default function Welcome({ auth }) {
                         <h1 class="text-3xl font-extrabold sm:text-5xl">
                             Simplificando a Vida em Condomínios:
                             <strong class="font-extrabold text-red-700 sm:block">
-                                Bem-vindo ao Living Hub!
+                                Bem-vindo ao Living Hub! Versão com teste
+                                quebrando
                             </strong>
                         </h1>
 
