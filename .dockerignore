@@ -2,3 +2,4 @@ vendor
 .github
 .env
 .git
+.node_modules
