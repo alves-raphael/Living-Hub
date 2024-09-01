@@ -10,7 +10,7 @@ import Select from "react-select";
 
 export default function Create({ auth, condominia }) {
     const title = "Nova área comum";
-    const { data, setData, post, errors, processing } = useForm({
+    const { datasetData, post, errors, processing } = useForm({
         name: "",
         condominium_id: null,
     });
